@@ -31,7 +31,7 @@ def parse_response(response)
     items.map do |item|
       fixed_item =
         if item.is_a? Array
-          item.first
+          item[1]
         else
           item
         end
@@ -41,5 +41,5 @@ def parse_response(response)
         qty: fixed_item["quantity"]
       }
     end
-  end
+  end.flatten
 end
