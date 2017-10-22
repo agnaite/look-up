@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="<%= url('css/style.css') %>" rel="stylesheet" type="text/css" />
     <title>look up</title>
   </head>
@@ -34,20 +35,12 @@
         </form>
       </div>
       <div class="row tables justify-content-md-center">
-
-        <!-- <h4 class="sub-header">In Stock</h4> -->
-        <div class="col-lg-4 in-stock-table">
-        </div>
-
-        <!-- <h4 class="sub-header">Out of Stock</h4> -->
-        <div class="col-lg-4 oo-stock-table">
-        </div>
-
+        <div class="col-md-6 col-lg-4 in-stock-table"></div>
+        <div class="col-md-6 col-lg-4 oo-stock-table"></div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="<%= url('js/script.js') %>"></script>
 
     <!-- handlebars -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
@@ -58,7 +51,13 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Quantity</th>
+              <th>Quantity
+                {{#if this.sort}}
+                  <span class="sort-btn asc">
+                    <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+                  </span>
+                {{/if}}
+              </th>
               <th>Size</th>
             </tr>
           </thead>
@@ -74,6 +73,6 @@
         </table>
       </div>
     </script>
-
+    <script src="<%= url('js/script.js') %>"></script>
   </body>
 </html>

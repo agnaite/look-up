@@ -23,3 +23,7 @@ form {
 .tables {
   margin-top: 60px;
 }
+
+.sort-btn {
+  cursor: pointer;
+}
