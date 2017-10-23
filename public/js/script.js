@@ -1,9 +1,13 @@
 $(document).ready(function() {
 
+  $('.close').on('click', () => {
+    closeFlash();
+  })
+
   // On click of search
   $('.btn-danger').click(evt => {
     evt.preventDefault();
-    $('.flash-container').attr('hidden', true)
+    closeFlash();
 
     const products = $('.products').val().replace(/ /g,'');
 
@@ -46,6 +50,10 @@ $(document).ready(function() {
       flash('Invalid format. Example: "143249,142593".');
       return false;
     }
+  }
+
+  const closeFlash = () => {
+    $('.flash-container').attr('hidden', true);
   }
 
   const flash = msg => {
