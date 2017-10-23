@@ -5,8 +5,9 @@ $(document).ready(function() {
   })
 
   // On click of search
-  $('.btn-danger').click(evt => {
+  $('.btn-find').click(evt => {
     evt.preventDefault();
+  
     closeFlash();
     loading(true);
     const products = $('.products').val().replace(/ /g,'');
@@ -31,7 +32,7 @@ $(document).ready(function() {
           if (inStock.products.length > 0) $('.in-stock-table').html(theTemplate(inStock));
           if (ooStock.products.length > 0) $('.oo-stock-table').html(theTemplate(ooStock));
 
-          $('.sort-btn').on('click', reverseRows);
+          $('.btn-sort').on('click', reverseRows);
         }
         else {
           flash('No products found!');
@@ -87,10 +88,10 @@ $(document).ready(function() {
   }
 
   const updateSortIcon = () => {
-    if ($('.sort-btn i').hasClass('fa-sort-numeric-desc')) {
-      $('.sort-btn').html('<i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>');
+    if ($('.btn-sort i').hasClass('fa-sort-numeric-desc')) {
+      $('.btn-sort').html('<i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>');
     } else {
-      $('.sort-btn').html('<i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>');
+      $('.btn-sort').html('<i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>');
     }
   }
 
