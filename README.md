@@ -1,5 +1,5 @@
 # look up
-search and display *dolls kill* product attributes 🔪👠
+search and display *Dolls Kill* product attributes 🔪👠
 
 ![example_1](/public/img/_readme-img/example_1.png)
 
