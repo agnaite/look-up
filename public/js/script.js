@@ -1,68 +1,96 @@
-$('.btn-danger').click(evt => {
-  evt.preventDefault();
+$(document).ready(function() {
 
-  const theTemplate = Handlebars.compile($("#table-template").html());
+  // On click of search
+  $('.btn-danger').click(evt => {
+    evt.preventDefault();
+    $('.flash-container').attr('hidden', true)
 
-  $('.in-stock-table').html('');
-  $('.oo-stock-table').html('');
+    const products = $('.products').val().replace(/ /g,'');
 
-  $.get('/get_products', { products: $('.products').val() }, response => {
+    if (validateInput(products)) {
+      const theTemplate = Handlebars.compile($("#table-template").html());
 
-    if (response !== '') {
-      const allProducts = JSON.parse(response);
+      $('.in-stock-table').html('');
+      $('.oo-stock-table').html('');
 
-      const inStock = filterOutOfStock(allProducts)[0]
-      const ooStock = filterOutOfStock(allProducts)[1]
+      $.get('/get_products', { products: products }, response => {
 
-      sortByQty(inStock.products)
+        if (response !== '') {
+          const allProducts = JSON.parse(response);
 
-      if (inStock.products.length > 0) $('.in-stock-table').html(theTemplate(inStock));
-      if (ooStock.products.length > 0) $('.oo-stock-table').html(theTemplate(ooStock));
+          const inStock = filterOutOfStock(allProducts)[0]
+          const ooStock = filterOutOfStock(allProducts)[1]
 
-      $('.sort-btn').on('click', reverseRows)
+          sortByQty(inStock.products)
+
+          if (inStock.products.length > 0) $('.in-stock-table').html(theTemplate(inStock));
+          if (ooStock.products.length > 0) $('.oo-stock-table').html(theTemplate(ooStock));
+
+          $('.sort-btn').on('click', reverseRows)
+        }
+        else {
+          flash('No products found!')
+        }
+      });
     }
   });
-});
 
-// helpers
+  // helpers
 
-const sortByQty = (products) => {
-  products.sort((a, b) => {
-    return b.qty - a.qty;
-  });
-  return products
-}
+  const validateInput = input => {
+    const alphaExp = /^\d+(,\d+)*$/;
 
-const filterOutOfStock = allProducts => {
-  let inStock = { products: [], caption: 'In Stock', sort: true};
-  let ooStock = { products: [], caption: 'Out of Stock'};
-
-  allProducts.forEach(product => {
-    if (product.qty > 0) {
-      inStock.products.push(product);
+    if(input.match(alphaExp)){
+      return true;
     } else {
-      ooStock.products.push(product);
-    }
-  });
-  return [inStock, ooStock];
-}
-
-const updateSortIcon = () => {
-  if ($('.sort-btn i').hasClass('fa-sort-numeric-desc')) {
-    $('.sort-btn').html('<i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>');
-  } else {
-    $('.sort-btn').html('<i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>');
-  }
-}
-
-const reverseRows = () => {
-  const table = $('.in-stock-table tbody');
-  for (var i = 0; i < table.length; i++) {
-    var rows = table[i].rows;
-    for (var j = 0; j < rows.length; j++) {
-      rows[j].parentNode.insertBefore(rows[rows.length-1], rows[j]);
+      flash('Invalid format. Example: "143249,142593".');
+      return false;
     }
   }
-  updateSortIcon();
-}
 
+  const flash = msg => {
+    $('.flash-container').removeAttr('hidden');
+    $('.flash').html(msg)
+    $('.products').focus();
+  }
+
+  const sortByQty = (products) => {
+    products.sort((a, b) => {
+      return b.qty - a.qty;
+    });
+    return products
+  }
+
+  const filterOutOfStock = allProducts => {
+    let inStock = { products: [], caption: 'In Stock', sort: true};
+    let ooStock = { products: [], caption: 'Out of Stock'};
+
+    allProducts.forEach(product => {
+      if (product.qty > 0) {
+        inStock.products.push(product);
+      } else {
+        ooStock.products.push(product);
+      }
+    });
+    return [inStock, ooStock];
+  }
+
+  const updateSortIcon = () => {
+    if ($('.sort-btn i').hasClass('fa-sort-numeric-desc')) {
+      $('.sort-btn').html('<i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>');
+    } else {
+      $('.sort-btn').html('<i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>');
+    }
+  }
+
+  const reverseRows = () => {
+    const table = $('.in-stock-table tbody');
+    for (var i = 0; i < table.length; i++) {
+      var rows = table[i].rows;
+      for (var j = 0; j < rows.length; j++) {
+        rows[j].parentNode.insertBefore(rows[rows.length-1], rows[j]);
+      }
+    }
+    updateSortIcon();
+  }
+});

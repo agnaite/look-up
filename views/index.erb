@@ -13,20 +13,19 @@
       <nav class="navbar fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="/">look up</a>
       </nav>
-      <% if session[:flash] %>
-        <div class="row justify-content-md-center">
-          <div class="alert alert-warning alert-dismissible fade show col-md-8" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <p class="flash"><%= session[:flash] %></p>
-          </div>
+      <div class="row justify-content-md-center flash-container" hidden>
+        <div class="alert alert-warning alert-dismissible fade show col-md-8" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p class="flash"></p>
         </div>
-      <% end %>
+      </div>
       <div class="row justify-content-md-center">
-        <form class="col-md-4">
+        <form class="col-md-4" id="regexpForm">
           <div class="input-group">
             <input type="text"
+                   name="productId"
                    class="form-control products"
                    placeholder="Product IDs"
                    aria-label="Products">
