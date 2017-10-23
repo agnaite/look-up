@@ -1,36 +1,95 @@
 .navbar-brand {
   font-weight: 400;
   font-size: 30px;
+  text-transform: uppercase;
+  font-family: 'Cabin', sans-serif;
+  letter-spacing: 2px;
+}
+
+.btn-search {
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 13px;
+  background-color: #39CCCC;
+  border-color: #2CBFBF;
+}
+
+.btn-search:focus,
+.btn-danger:focus {
+  box-shadow: none;
+}
+
+.btn-search:hover {
+  background-color: #22B5B5;
+  border-color: #22B5B5;
 }
 
 .alert-warning {
-  margin-top: 80px;
+  margin-top: 100px;
   padding-bottom: 0;
   position: absolute;
-  background-color: mistyrose;
+  background-color: #DDD;
   border: none;
-  color: #666;
+  color: #111;
 }
 
 .flash {
   padding-top: 5px;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
 }
 
 form {
   margin-top: 200px;
+  margin-bottom: 60px;
+}
+
+.form-control:focus {
+  border-color: #39CCCC;
+}
+
+::-webkit-input-placeholder,
+.form-control {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
 }
 
 .tables {
   margin-top: 60px;
 }
 
+.table caption {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+  color: #39CCCC;
+}
+
+.table th {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
 .btn-sort {
   cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-sort:hover {
+  color: #39CCCC;
 }
 
 .load-img {
-  color: lightpink;
+  color: #39CCCC;
   display: none;
   margin: 0 auto;
+  padding: 0;
+}
+
+.close {
+  cursor: pointer;
 }

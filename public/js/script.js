@@ -5,9 +5,9 @@ $(document).ready(function() {
   })
 
   // On click of search
-  $('.btn-find').click(evt => {
+  $('.btn-search').click(evt => {
     evt.preventDefault();
-  
+
     closeFlash();
     loading(true);
     const products = $('.products').val().replace(/ /g,'');
