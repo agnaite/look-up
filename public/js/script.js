@@ -8,32 +8,34 @@ $(document).ready(function() {
   $('.btn-danger').click(evt => {
     evt.preventDefault();
     closeFlash();
-
+    loading(true);
     const products = $('.products').val().replace(/ /g,'');
 
     if (validateInput(products)) {
       const theTemplate = Handlebars.compile($("#table-template").html());
 
-      $('.in-stock-table').html('');
-      $('.oo-stock-table').html('');
+      clearTables();
 
       $.get('/get_products', { products: products }, response => {
 
         if (response !== '') {
           const allProducts = JSON.parse(response);
 
-          const inStock = filterOutOfStock(allProducts)[0]
-          const ooStock = filterOutOfStock(allProducts)[1]
+          const inStock = filterOutOfStock(allProducts)[0];
+          const ooStock = filterOutOfStock(allProducts)[1];
 
-          sortByQty(inStock.products)
+          sortByQty(inStock.products);
+
+          $('.load-img').css('display', 'none');
 
           if (inStock.products.length > 0) $('.in-stock-table').html(theTemplate(inStock));
           if (ooStock.products.length > 0) $('.oo-stock-table').html(theTemplate(ooStock));
 
-          $('.sort-btn').on('click', reverseRows)
+          $('.sort-btn').on('click', reverseRows);
         }
         else {
-          flash('No products found!')
+          flash('No products found!');
+          loading(false);
         }
       });
     }
@@ -44,9 +46,10 @@ $(document).ready(function() {
   const validateInput = input => {
     const alphaExp = /^\d+(,\d+)*$/;
 
-    if(input.match(alphaExp)){
+    if (input.match(alphaExp)) {
       return true;
     } else {
+      loading(false);
       flash('Invalid format. Example: "143249,142593".');
       return false;
     }
@@ -100,5 +103,14 @@ $(document).ready(function() {
       }
     }
     updateSortIcon();
+  }
+
+  const clearTables = () => {
+    $('.in-stock-table').html('');
+    $('.oo-stock-table').html('');
+  }
+
+  const loading = status => {
+    status ? $('.load-img').css('display', 'block') : $('.load-img').css('display', 'none');
   }
 });

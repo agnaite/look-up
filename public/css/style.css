@@ -28,3 +28,9 @@ form {
 .sort-btn {
   cursor: pointer;
 }
+
+.load-img {
+  color: lightpink;
+  display: none;
+  margin: 0 auto;
+}
