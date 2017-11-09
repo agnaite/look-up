@@ -97,9 +97,9 @@ $(document).ready(function() {
 
   const reverseRows = () => {
     const table = $('.in-stock-table tbody');
-    for (var i = 0; i < table.length; i++) {
-      var rows = table[i].rows;
-      for (var j = 0; j < rows.length; j++) {
+    for (let i = 0; i < table.length; i++) {
+      let rows = table[i].rows;
+      for (let j = 0; j < rows.length; j++) {
         rows[j].parentNode.insertBefore(rows[rows.length-1], rows[j]);
       }
     }
